@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="ie-edge">
+
+	<title>My_Quiz</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,400i&display=swap" rel="stylesheet">
+	 -->
+</head>
+
+<body>
+	
+	<div id="index" class="container">
+
+		<div id="homeContainer" class="flex-center flex-column">
+			<h1>WELCOME TO MY QUIZ</h1>
+			<input type="text" id="userName" value="" placeholder="Enter your name" class="text-center">
+			<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">START</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" id="mathQ">Maths</a>
+				<a class="dropdown-item" id="currentQ">Current Affairs</a>
+				<a class="dropdown-item" id="sciencesQ">Science</a>	
+			</div>
+			<button id="adminButton" class="text-white">Admin</button>
+			
+
+		</div>
+		
+	</div>
+	<div id="ques">
+		<div class="container">
+			<div id="maths">
+				<div class="flex-center flex-column">
+					<div id="mathQuiz">
+						<span id="hi" class="text-white" style="font-size: 20px;"></span>
+						<h3 class="text-center text-white">MATH QUIZ</h3>
+						<h2 class="timer text-center"> TIME: <span id="minutes">3</span>:<span id="seconds">00</span></h2>
+						<div id="questionContainer">
+							<h3 id="question" class="text-center"></h3>
+							
+						</div>
+						<div id="optionContainer">
+							
+						</div>
+					</div>
+						
+				</div>
+					
+			</div>
+			<div id="current">
+				<div class="flex-center flex-column">
+					<div id="currentQuiz">
+						<span id="hi" class="text-white" style="font-size: 20px;"></span>
+						<h3 class="text-center text-white">CURRENT AFFAIRS QUIZ</h3>
+						<h2 class="timer text-center"> TIME: <span id="minutes">1</span>:<span id="seconds">30</span></h2>
+						<div id="questionContainer">
+							<h3 id="question" class="text-center"></h3>
+							
+						</div>
+						<div id="optionContainer">
+							
+						</div>
+					</div>					
+				</div>
+				<button id="nextButton" class="text-white">Next</button>
+				<button id="submitButton" class="text-white">Submit</button>
+				<button id="prevButton" class="text-white">Prev</button>
+				
+			</div>
+
+			<div id="science">
+				<div class="flex-center flex-column">
+					<div id="scienceQuiz">
+						<span id="hi" class="text-white" style="font-size: 20px;"></span>
+						<h3 class="text-center text-white">SCIENCE QUIZ</h3>
+						<h2 class="timer text-center"> TIME: <span id="minutes">1</span>:<span id="seconds">30</span></h2>
+						<div id="questionContainer">
+							<h3 id="question" class="text-center"></h3>
+							
+						</div>
+						<div id="optionContainer">
+							
+						</div>
+					</div>
+
+				</div>	
+			</div>
+			<div id="submit">
+				<h3 class="text-center text-white">You have submitted</h3>
+				<h2 class="text-center text-white">Your score is: <span id="score">0</span>%</h2>
+				
+				<button id="backButton"  style="margin-left: 0%;"><a href="index.html"  class="text-white"> Home</a></button>
+				
+			</div>
+			<div id="timeUp">
+				<h3 class="text-center text-white">TIME UP!</h3>
+				<h2 class="text-center text-white">Your score is: <span id="timeUpScore">0</span>%</h2>
+				
+				<button id="timeUpButton"  style="margin-left: 0%;"><a href="index.html"  class="text-white"> Home</a></button>
+				
+			</div>
+
+		</div>
+		<button id="nextButton" class="text-white">Next</button>
+		<button id="submitButton" class="text-white">Submit</button>
+		<button id="prevButton" class="text-white">Prev</button>
+	</div>
+
+	
+	
+
+
+
+	<script type="text/javascript" src="js/jquery-3.3.1.slim.min.js"></script>
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/maths.js"></script>
+	<!-- <script type="text/javascript" src="js/currentAffairs.js"></script> -->
+	<!-- <script type="text/javascript" src="js/science.js"></script> -->
+	<script>	
+		let timeUp = document.getElementById('timeUp');
+		let submit = document.getElementById('submit');
+		let submitButton = document.getElementById('submitButton')
+			submitButton.style.display = "none";
+		let nextButton = document.getElementById('nextButton');
+		let prevButton = document.getElementById('prevButton')
+
+		let score = document.getElementById('score');
+		let timeUpScore = document.getElementById('timeUpScore');
+
+		let min = document.getElementById('minutes');
+		let sec = document.getElementById('seconds');
+		let myMin = parseInt(mathTotalSeconds/60);
+		let mySec = parseInt(mathTotalSeconds%60);
+		
+
+		$(function(){
+			var ques = $('#ques')
+			var sciencesQ = $("#sciencesQ");
+			var mathQ = $("#mathQ");
+			var currentQ = $('#currentQ');
+			var index = $("#index");
+			var maths = $("#maths");
+			var science = $("#science");
+			var current = $('#current');
+			
+			let today = new Date()
+			let curHr = today.getHours()
+			let hi = $("#hi")
+
+			index.css({display:"block"});
+			ques.css({display:"none"});
+			science.css({display:"none"});
+			maths.css({display:"none"});
+			current.css({display:"none"});
+
+
+			let VarName = $('#userName').val()
+			function Greetings(VarName){
+				if (curHr < 12) {
+				  hi.html(`Good Morning ${VarName}!`);
+				} else if (curHr < 18) {
+				  hi.html(`Good Afternoon ${VarName}!`);
+				} else {
+				  hi.html(`Good Evening ${VarName}!`);
+				}
+			}		
+		
+
+
+		mathQ.click(function() {
+			ques.css({display:'block'})
+			maths.css({display:"block"})
+			index.css({display:"none"})
+			Greetings(VarName);
+		})
+
+		sciencesQ.click(function(){
+			ques.css({display:'block'})
+			science.css({display:"block"})
+			index.css({display:"none"})
+			Greetings(VarName);
+		})
+
+
+		currentQ.click(function(){
+			ques.css({display:'block'})
+			current.css({display:"block"})
+			index.css({display:"none"})
+			Greetings(VarName);
+		})
+
+	})
+		
+
+	</script>
+	
+	
+</body>
